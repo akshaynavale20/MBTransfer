@@ -1,2 +1,0 @@
-# MBTransfer
-WebRTC Transfer
