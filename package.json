@@ -53,6 +53,7 @@
     "fbr": "latest",
     "getstats": "latest",
     "multistreamsmixer": "latest",
+    "nodemailer": "^6.4.11",
     "recordrtc": "latest",
     "rtcmulticonnection-server": "latest",
     "socket.io": "latest",

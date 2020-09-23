@@ -11,6 +11,11 @@
          
            
     </script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+     <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+     <script data-require="bootstrap@*" data-semver="3.3.6" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+     <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -18,8 +23,8 @@
     <script src="https://wzrd.in/standalone/copy-to-clipboard@latest" async></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
-    <link rel="icon" href="http://localhost:9001/mbtransfer/mbTransfer.png">
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <link rel="icon" href="http://149.129.128.197/mbtransfer/mbTransfer.png">
     <style>
         * {
           margin: 0;
@@ -68,7 +73,7 @@
           left: 0;
           right: 0;
           bottom: 0;
-          background-image: url(http://localhost:9001/mbtransfer/22133.jpg);
+          background-image: url(http://149.129.128.197/mbtransfer/22133.jpg);
           z-index: 1;
         }
 
@@ -85,7 +90,7 @@
           border: 1px solid #1B1B1B;
           background-color: #D5D8D8;
           cursor: pointer;
-          background-image: url(http://localhost:9001/mbtransfer/upload.gif);
+          background-image: url(http://149.129.128.197/mbtransfer/upload.gif);
           outline: none;
           background-size:contain
          
@@ -115,8 +120,7 @@
 
         #logs {
           position: absolute;
-          background: white;
-          border-left: 1px solid black;
+        
           width: 25%;
           top: 80px;
           right: 0;
@@ -126,12 +130,14 @@
           overflow: auto;
           height: 100%;
           border-top-left-radius: 5px;
-          font-size: 22px;
+          font-size: 15px;
+          background-image: url(http://localhost:9001/mbtransfer/cool-background.png);
         }
 
         #logs p {
           padding: 2px 4px;
           border-bottom: 1px solid black;
+           padding-top: 50px;
         }
 
         header {
@@ -147,7 +153,19 @@
           background: #fbfbfb;
           border-bottom: 1px solid white;
         }
-
+        .logo .mobile {
+    display: none;
+  }
+  /* when screen is less than 600px wide
+     show mobile version and hide desktop */
+  @media (max-width: 600px) {
+    .logo .mobile {
+      display: block;
+    }
+    .logo .desktop {
+      display: none;
+    }
+  }
         #number-of-users {
           position: absolute;
           right: 60px;
@@ -172,6 +190,7 @@
           background: rgba(255, 255, 255, 0.28);
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px;
+          display: none;
         }
 
         #join-room {
@@ -182,6 +201,7 @@
           font-size: 30px;
           border-top-right-radius: 5px;
           border-bottom-right-radius: 5px;
+          display: none;
         }
 
          .android-app-icon {
@@ -222,6 +242,7 @@
             border-left: 0;
             border-top: 1px solid black;
             font-size: 18px;
+            padding-top: 50px;
           }
 
           .btn-select-file {
@@ -265,6 +286,11 @@
     -webkit-filter: drop-shadow(5px 5px 5px #222222);
   filter: drop-shadow(5px 5px 5px #222222);
   }
+  #footer {display:inline;}
+#footer address {display:inline }
+  .hide-anything{
+    display: none;
+  }
     </style>
 </head>
 <body>
@@ -275,32 +301,79 @@
 
 
     <header>
-      <div class="logo"><img src="http://localhost:9001/mbtransfer/mbTransfer.png"></div>
+      <div > <button type="button" id="btn-launch" class="hide-anything" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+      </button>
+    
+      
+      <div class="logo"><img src="http://149.129.128.197/mbtransfer/mbTransfer.png" class="desktop" ><p class="mobile">MBTransfer</p></div>
         <div class="ribbon"><div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h3>
           <div id="uniqueID"></div>
         </h3></strong><div class="ribbon-stitches-bottom"></div></div>
-
+       
         <div class="displayInput">
           <input type="text" id="room-id" placeholder="Unique ID"><button id="join-room">Join</button>
+          <div id="connecting"><img src="http://localhost:9001/mbtransfer/loading.gif" ></div>
         </div>
     </header>
-
     <div id="number-of-users" title="Number of online users.">0</div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Welcome to MBTransfer v1.0</h4>
+        </div>
+        <div class="modal-body">
+          <footer id="footer">
+
+            <span><img src="http://localhost:9001/mbtransfer/chromeicon.png"> I'm only built for chrome browser !</span><br><br>
+                <span> <img src="http://localhost:9001/mbtransfer/inc.png">I prefer incognito for better performance</span><br><br>
+                <span> <img src="http://localhost:9001/mbtransfer/dev.png">I'm still in devolopement phase </span><br>
+                <br>
+                <br>
+                <center><p style="font-size: 15px;">Report Issues on akshaynavale20@gmail.com</p></center>
+                       
+        </footer>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
     <div id="logs">
+      
       <div class="ui">
         <br>
         <input type="text" id="copyText"  value="">
       
         <i class="fas fa-copy" onclick="Copy()" ></i>
-       
+        <br>
+        <p>Send Email to Reciever</p>
+        <input type="text" id="email"  value="">
+        <button type="button" id="" class="btn btn-default" onclick="sendEmail()" >
+         Send
+        </button>
+          
     </div>
+   
     </div>
+
+   
     
 
 
     <script>
       // to get STUN/TURN URIs from xirsys.com
-      window.getExternalIceServers = true;
+      window.getExternalIceServers = false;
     </script>
 
     <script src="/dist/RTCMultiConnection.min.js"></script>
@@ -313,6 +386,7 @@
     <script src="/node_modules/fbr/FileBufferReader.js"></script>
 
     <script>
+       document.getElementById('btn-launch').click();
          var location = window.location.href
          document.getElementById("copyText").value=location
        function Copy(){
@@ -332,9 +406,9 @@
             alert('Error:\n' + error);
         };
 
-        // Muaz Khan     - https://github.com/muaz-khan
-        // MIT License   - https://www.WebRTC-Experiment.com/licence/
-        // Source Code   - https://github.com/muaz-khan/RTCMultiConnection
+        function sendEmail() { 
+          alert('Under Devolopement')
+    } 
 
         window.addEventListener('load', function() {
             if (window.localStorage.getItem('room-id')) {
@@ -445,7 +519,12 @@
                 connection.filesContainer = logsDiv;
 
                 connection.connectedWith = {};
-
+                var no = connection ? connection.getAllParticipants().length : 0
+                if(no == 0){
+                  new Toast(" Wating for users to join ! ",Toast.TYPE_MESSAGE);
+                  
+                  
+                 }
                 connection.onmessage = function(event) {
                     if(event.data.doYouWannaReceiveThisFile) {
                         if(!connection.fileReceived[event.data.fileName]) {
@@ -523,10 +602,10 @@
                    
                     if(document.getElementById('room-id')) {
                         if(innerWidth > 500) {
-                          document.getElementById('uniqueID').parentNode.innerHTML = ' Unique ID : ' + roomid;
+                          document.getElementById('uniqueID').parentNode.innerHTML = ' Unique ID : ' + roomid + "<br> <strong><p style='font-size:20px'>Connected ! You can send files now</p>";
                           document.getElementById("room-id").style.display = "none";
                           document.getElementById("join-room").style.display = "none";
-                          
+                          document.getElementById("connecting").style.display = "none";
                           console.log(  document.getElementById('room-id'))
                         }
                         else {
@@ -660,7 +739,7 @@
                         var message = 'Successfully received file';
                         message += '<br><b>' + file.name + '</b>.';
                         message += '<br>Size: <b>' + bytesToSize(file.size) + '</b>.';
-                        message += '<br><a href="' + file.url + '" target="_blank" download="' + file.name + '">Download</a>';
+                        message += '<br><strong><a style="font-size:20px" href="' + file.url + '" target="_blank" download="' + file.name + '">Download</a>';
                         var div = appendLog(message);
                         return;
                     }
@@ -693,8 +772,8 @@
             }
 
             function onFileSelected(file) {
-                var innerHTML = 'You selected:<br><b>' + file.name + '</b><br>Size: <b>' + bytesToSize(file.size) + '</b>';
-                appendLog(innerHTML);
+                // var innerHTML = 'You selected:<br><b>' + file.name + '</b><br>Size: <b>' + bytesToSize(file.size) + '</b>';
+                // appendLog(innerHTML);
                 new Toast( "File Name:"+ file.name  + "<br> Size :"+bytesToSize(file.size) ,Toast.TYPE_INFO);
                 lastSelectedFile = file;
 
@@ -707,11 +786,14 @@
             }
 
             var numberOfUsers = document.getElementById('number-of-users');
-
+          
             function incrementOrDecrementUsers() {
+               
                 numberOfUsers.innerHTML = connection ? connection.getAllParticipants().length : 0;
-            }
-
+                
+                
+              }
+            
             var logsDiv = document.getElementById('logs');
 
             function appendLog(html, color) {

@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 var httpServer = require('http');
-
+var nodemailer = require('nodemailer');
 const ioServer = require('socket.io');
 const RTCMultiConnectionServer = require('rtcmulticonnection-server');
 
@@ -126,7 +126,7 @@ function serverHandler(request, response) {
         try {
             stats = fs.lstatSync(filename);
 
-            if (filename.search(/mbtransfer/g) === -1 && filename.search(/admin/g) === -1 && stats.isDirectory() && config.homePage === '/mbtransfer/index.html') {
+            if (filename.search(/mbtransfer/g) === -1 && filename.search(/admin/g) === -1 && stats.isDirectory() && config.homePage === '/mbtrasnfer/') {
                 if (response.redirect) {
                     response.redirect('/mbtransfer/');
                 } else {
