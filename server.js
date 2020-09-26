@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 var httpServer = require('http');
-var nodemailer = require('nodemailer');
+
 const ioServer = require('socket.io');
 const RTCMultiConnectionServer = require('rtcmulticonnection-server');
 
@@ -85,7 +85,7 @@ function serverHandler(request, response) {
         }
 
         var matched = false;
-        ['/mbtransfer/', '/dev/', '/dist/', '/socket.io/', '/node_modules/canvas-designer/', '/admin/'].forEach(function(item) {
+        ['/demos/', '/dev/', '/dist/', '/socket.io/', '/node_modules/canvas-designer/', '/admin/'].forEach(function(item) {
             if (filename.indexOf(resolveURL(item)) !== -1) {
                 matched = true;
             }
@@ -126,12 +126,12 @@ function serverHandler(request, response) {
         try {
             stats = fs.lstatSync(filename);
 
-            if (filename.search(/mbtransfer/g) === -1 && filename.search(/admin/g) === -1 && stats.isDirectory() && config.homePage === '/mbtrasnfer/') {
+            if (filename.search(/demos/g) === -1 && filename.search(/admin/g) === -1 && stats.isDirectory() && config.homePage === '/demos/index.html') {
                 if (response.redirect) {
-                    response.redirect('/mbtransfer/');
+                    response.redirect('/demos/');
                 } else {
                     response.writeHead(301, {
-                        'Location': '/mbtransfer/'
+                        'Location': '/demos/'
                     });
                 }
                 response.end();
@@ -152,22 +152,22 @@ function serverHandler(request, response) {
                     'Content-Type': 'text/html'
                 });
 
-                if (filename.indexOf(resolveURL('/mbtransfer/MultiRTC/')) !== -1) {
-                    filename = filename.replace(resolveURL('/mbtransfer/MultiRTC/'), '');
-                    filename += resolveURL('/mbtransfer/MultiRTC/index.html');
+                if (filename.indexOf(resolveURL('/demos/MultiRTC/')) !== -1) {
+                    filename = filename.replace(resolveURL('/demos/MultiRTC/'), '');
+                    filename += resolveURL('/demos/MultiRTC/index.html');
                 } else if (filename.indexOf(resolveURL('/admin/')) !== -1) {
                     filename = filename.replace(resolveURL('/admin/'), '');
                     filename += resolveURL('/admin/index.html');
-                } else if (filename.indexOf(resolveURL('/mbtransfer/dashboard/')) !== -1) {
-                    filename = filename.replace(resolveURL('/mbtransfer/dashboard/'), '');
-                    filename += resolveURL('/mbtransfer/dashboard/index.html');
-                } else if (filename.indexOf(resolveURL('/mbtransfer/video-conference/')) !== -1) {
-                    filename = filename.replace(resolveURL('/mbtransfer/video-conference/'), '');
-                    filename += resolveURL('/mbtransfer/video-conference/index.html');
-                } else if (filename.indexOf(resolveURL('/mbtransfer')) !== -1) {
-                    filename = filename.replace(resolveURL('/mbtransfer/'), '');
-                    filename = filename.replace(resolveURL('/mbtransfer'), '');
-                    filename += resolveURL('/mbtransfer/index.html');
+                } else if (filename.indexOf(resolveURL('/demos/dashboard/')) !== -1) {
+                    filename = filename.replace(resolveURL('/demos/dashboard/'), '');
+                    filename += resolveURL('/demos/dashboard/index.html');
+                } else if (filename.indexOf(resolveURL('/demos/video-conference/')) !== -1) {
+                    filename = filename.replace(resolveURL('/demos/video-conference/'), '');
+                    filename += resolveURL('/demos/video-conference/index.html');
+                } else if (filename.indexOf(resolveURL('/demos')) !== -1) {
+                    filename = filename.replace(resolveURL('/demos/'), '');
+                    filename = filename.replace(resolveURL('/demos'), '');
+                    filename += resolveURL('/demos/index.html');
                 } else {
                     filename += resolveURL(config.homePage);
                 }

@@ -1,10 +1,12 @@
 {
-    "name": "MBTransfer",
-    "version": "1.0.0",
+    "name": "rtcmulticonnection",
+    "description": "RTCMultiConnection is a WebRTC JavaScript wrapper library runs top over RTCPeerConnection API to provide multi-session establishment scenarios.",
+    "version": "3.7.0",
     "authors": [
         {
-            "name": "Akshay Navale",
-            "email": "akshaynavale20@gmail.com"
+            "name": "Muaz Khan",
+            "email": "muazkh@gmail.com",
+            "homepage": "https://muazkhan.com/"
         }
     ],
     "main": "RTCMultiConnection.js",
@@ -28,6 +30,11 @@
         "muaz",
         "muaz-khan"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/muaz-khan/RTCMultiConnection.git"
+    },
+    "homepage": "https://rtcmulticonnection.herokuapp.com/demos/",
     "ignore": [
         "**/.*",
         "node_modules",
